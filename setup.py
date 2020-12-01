@@ -1,7 +1,7 @@
 import setuptools
 
 
-version = '0.1.dev0'
+version = '0.1.0'
 
 
 with open("README.md", "r") as fh:
