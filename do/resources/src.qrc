@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/images">
+        <file alias="icon.ico">../statics/images/icon.ico</file>
+        <file alias="grip.png">../statics/images/grip.png</file>
+        <file alias="mute.png">../statics/images/mute.png</file>
+        <file alias="deaf.png">../statics/images/deaf.png</file>
+        <file alias="hide.png">../statics/images/hide.png</file>
+    </qresource>
+</RCC>

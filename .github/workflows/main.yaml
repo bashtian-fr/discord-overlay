@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+jobs:
+  job1:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: true
+          prerelease: false
+
+  job2:
+    name: Build
+    needs: job1
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macOS-latest]
+        python: [3.8]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install deps
+        run: |
+          which python
+          python --version
+          pip install --upgrade pip setuptools wheel
+          pip install . pyinstaller==4.1
+        shell: bash
+
+      - name: Build
+        run: |
+          pyrcc5 -o do/resources/rc.py do/resources/src.qrc
+          pyinstaller --icon do/statics/images/icon.ico -n discord-overlay --onefile --windowed do/scripts/entrypoint.py
+          tar -czvf discord-overlay-${{ matrix.os }}.tar.gz dist/
+        shell: bash
+
+      - name: Upload assets
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.job1.outputs.upload_url }}
+          asset_path: ./discord-overlay-${{ matrix.os }}.tar.gz
+          asset_name: discord-overlay-${{ matrix.os }}.tar.gz
+          asset_content_type: application/gzip
