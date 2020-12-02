@@ -10,6 +10,7 @@ A Discord PyQT5 app that provide a discord overlay over the windows.
 - download a [release](https://github.com/bashtian-fr/discord-overlay/releases/) according to your system or build it.
 - for ubuntu you will need to install `sudo apt-get install libxcb-xinerama0`
 - run the downloaded release, warning Windows may see the application as threat. Click 'More info' then 'Run anyway' (windows10).
+- discord will ask you to authorize ![Streamkit](https://discord.com/streamkit) to access your discord messages and channels. ![Streamkit](https://discord.com/streamkit) is the official discord app to manage apis/rpc.
 - start the overlay, the frame will be visible, you can hide it using the icon: ![alt text](/docs/toggle_button.png?raw=true  "hide")
 - You can also toggle the frame using the systray menu: ![alt text](/docs/systray_menu.png?raw=true  "systray")
 - you can resize the frame with the corner button (it is not saved upon restarts): ![alt text](/docs/resize.png?raw=true  "systray")
