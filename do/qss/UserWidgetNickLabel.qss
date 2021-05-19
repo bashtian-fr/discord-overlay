@@ -1,0 +1,5 @@
+QLabel[cssClass="UserWidgetNickLabel"] {
+    color: white;
+    font-size: 12px;
+    padding-left: 2px;
+}

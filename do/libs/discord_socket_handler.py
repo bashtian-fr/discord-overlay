@@ -1,12 +1,12 @@
-import json
-import requests
-from websocket import create_connection
-
-
-'''
+"""
+Credits:
 Part of the connector is based on the one of Trigg's:
 https://github.com/trigg/Discover/blob/master/discover_overlay/discord_connector.py
-'''
+"""
+import json
+import sys
+import requests
+from websocket import create_connection
 
 
 class DiscordSocketHandler:
@@ -24,11 +24,7 @@ class DiscordSocketHandler:
             return
 
         self.websocket = create_connection(
-            'ws://{address}:{port}/?v=1&client_id={client_id}'.format(
-                address=self.address,
-                port=self.port,
-                client_id=self.client_id
-            ),
+            f'ws://{self.address}:{self.port}/?v=1&client_id={self.client_id}',
             origin=self.origin,
         )
 

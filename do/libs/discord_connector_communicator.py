@@ -6,7 +6,7 @@ from PyQt5.QtCore import (
 
 class DiscordConnectorCommunicator(QObject):
     # Define the signals:
-    you_joined_voice_channel_signal = pyqtSignal(str)
+    you_joined_voice_channel_signal = pyqtSignal()
     you_left_voice_channel_signal = pyqtSignal()
 
     someone_left_voice_channel_signal = pyqtSignal(dict)

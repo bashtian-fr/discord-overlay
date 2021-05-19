@@ -1,0 +1,17 @@
+[MASTER]
+extension-pkg-whitelist=PyQt5
+disable=
+    C0114, # missing-module-docstring
+    C0115, # missing-class-docstring
+    C0116, # missing-function-docstring
+ignore=
+    docs,
+    do/qss,
+    do/resources,
+    .vscode,
+    .pyvenv39,
+    .git,
+    .github,
+    build,
+    *.egg-info,
+    dist,

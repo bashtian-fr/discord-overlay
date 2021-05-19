@@ -2,20 +2,32 @@
 
 A Discord PyQT5 app that provide a discord overlay over the windows.
 
-![alt text](/docs/demo.png?raw=true  "Demo - visible frame")
-![alt text](/docs/withoutframe.png?raw=true  "Demo - without frame")
+<img src="/docs/demo.png" alt="Demo - visible frame" height="200px" />
+<img src="/docs/only_speakers.png" alt="Demo - only_speakers" height="200px" />
 
-# Usage
+# Features
+- stays on top
+- click throu
+- can hide window frame
+- show only speakers/or all present in chanel
+- resizeable
 
-- download a [release](https://github.com/bashtian-fr/discord-overlay/releases/) according to your system or build it.
-- for ubuntu you will need to install `sudo apt-get install libxcb-xinerama0`
-- run the downloaded release, warning Windows may see the application as threat. Click 'More info' then 'Run anyway' (windows10).
-- discord will ask you to authorize ![Streamkit](https://discord.com/streamkit) to access your discord messages and channels. ![Streamkit](https://discord.com/streamkit) is the official discord app to manage apis/rpc.
-- start the overlay, the frame will be visible, you can hide it using the icon: ![alt text](/docs/toggle_button.png?raw=true  "hide")
-- You can also toggle the frame using the systray menu: ![alt text](/docs/systray_menu.png?raw=true  "systray")
-- you can resize the frame with the corner button (it is not saved upon restarts): ![alt text](/docs/resize.png?raw=true  "systray")
-- drag the window using the red frame title.
-- by default the frame will be positioned at x:0, y:0 (top-left corner). Moving it does not save the position. You need to replace it/resize it everytime you start the overlay.
+# Options
+- `--debug` enabled debug logs
+
+# Install/Run
+
+It is a standalone app (aka portable). There is not installation. \
+Note: The release may appear big in size, this is because it embed all DLLs and the Python interpret to run it properly.
+
+- Prerequisites
+  - Ubuntu: install `sudo apt-get install libxcb-xinerama0`
+  - Windows: install `Microsoft Visual C++ Redistributable`
+    - Windows may see the application as threat. Click 'More info' then 'Run anyway' (windows10).
+- Download a [release](https://github.com/bashtian-fr/discord-overlay/releases/) according to your system or build it.
+- Run the downloaded release.
+- Discord will ask you to authorize ![Streamkit](https://discord.com/streamkit) to access your discord messages and channels. ![Streamkit](https://discord.com/streamkit) is the official discord app to manage apis/rpc.
+
 
 # build
 
@@ -47,7 +59,7 @@ A Discord PyQT5 app that provide a discord overlay over the windows.
 `pip install pyinstaller`
 `pyinstaller --icon do/statics/images/icon.ico -n discord-overlay --onefile --windowed do/scripts/entrypoint.py`
 
-The executable will be create in dist/ folder
+The executable will be created in dist/ folder
 
 # Credits
 Part of the connector is based on the one of Trigg's: https://github.com/trigg/Discover/blob/master/discover_overlay/discord_connector.py

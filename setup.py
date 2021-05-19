@@ -1,7 +1,7 @@
 import setuptools
 
 
-version = '0.1.0'
+version = '1.0.0'
 
 
 with open("README.md", "r") as fh:
@@ -40,10 +40,10 @@ setuptools.setup(
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[
-        'websocket-client==0.57.0',
-        'Click==7.1.2',
-        'PyQT5==5.15.1',
-        'requests==2.25.0',
+        'websocket-client==1.0.0',
+        'Click==8.0.1',
+        'PyQT5==5.15.4',
+        'requests==2.25.1',
     ],
     entry_points='''
         [console_scripts]

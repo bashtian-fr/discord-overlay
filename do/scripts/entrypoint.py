@@ -1,7 +1,7 @@
-import click
 import logging
 import signal
 import sys
+import click
 
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtWidgets import QApplication
@@ -16,13 +16,18 @@ from do.libs.helpers import exit_app
 
 logging.basicConfig(
     format='[%(asctime)s] %(levelname)s: %(message)s',
-    level=logging.DEBUG,
+    level=logging.INFO,
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
 
 @click.command()
-def main():
+@click.option('--debug', is_flag=True, default=False)
+def main(debug=False):
+    if debug:
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+
     signal.signal(signal.SIGINT, exit_app)
     QCoreApplication.setOrganizationDomain(ORGANIZATION_DOMAIN)
     QCoreApplication.setApplicationName(APPLICATION_NAME)

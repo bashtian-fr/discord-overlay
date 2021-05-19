@@ -10,8 +10,7 @@ class Overlay(QFrame):
         super(Overlay, self).__init__(parent)
         self.name = name
         self.title = name
-        self._gripSize = 4
-        self.setObjectName = self.name
+        self.setObjectName = name
         self.setWindowFlags(
             Qt.FramelessWindowHint |
             Qt.Tool |

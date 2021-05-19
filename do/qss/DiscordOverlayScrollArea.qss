@@ -1,0 +1,4 @@
+#DiscordOverlayScrollArea {
+    background: transparent;
+    border: 1px dotted pink;
+}

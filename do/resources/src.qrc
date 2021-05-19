@@ -1,10 +1,21 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/images">
+        <file alias="close.png">../statics/images/close.png</file>
         <file alias="icon.ico">../statics/images/icon.ico</file>
         <file alias="grip.png">../statics/images/grip.png</file>
+        <file alias="grip_hover.png">../statics/images/grip_hover.png</file>
         <file alias="mute.png">../statics/images/mute.png</file>
         <file alias="deaf.png">../statics/images/deaf.png</file>
         <file alias="hide.png">../statics/images/hide.png</file>
+    </qresource>
+    <qresource prefix="/qss">
+        <file alias="DiscordOverlayUserContainer.qss">../qss/DiscordOverlayUserContainer.qss</file>
+        <file alias="OverlayHeaderToggleButton.qss">../qss/OverlayHeaderToggleButton.qss</file>
+        <file alias="OverlayHeaderTitleLabel.qss">../qss/OverlayHeaderTitleLabel.qss</file>
+        <file alias="OverlayHeaderWidget.qss">../qss/OverlayHeaderWidget.qss</file>
+        <file alias="DiscordOverlayScrollArea.qss">../qss/DiscordOverlayScrollArea.qss</file>
+        <file alias="OverlayHeaderSizeGrip.qss">../qss/OverlayHeaderSizeGrip.qss</file>
+        <file alias="UserWidgetNickLabel.qss">../qss/UserWidgetNickLabel.qss</file>
     </qresource>
 </RCC>

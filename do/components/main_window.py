@@ -1,59 +1,65 @@
-
 import sys
-import time
-import queue
 import logging
 
-from pathlib import Path
-
 from PyQt5.QtCore import (
-    Qt,
     QTimer,
-    QThreadPool,
+    Qt,
 )
 from PyQt5.QtWidgets import (
+    QErrorMessage,
     QMainWindow,
     qApp,
-    QErrorMessage,
 )
 from PyQt5.QtGui import QIcon
 
-import do.resources.rc
-from do import ORGANIZATION_DOMAIN, APPLICATION_NAME
-from do.components.system_tray import SystemTrayIcon
+import do.resources.rc # pylint: disable=unused-import
+from do import DEFAULT_DISCORD_CLIENT_ID
 from do.components.discord_overlay import DiscordOverlay
+from do.components.system_tray import SystemTrayIcon
 from do.libs.discord_connector import DiscordConnector
+from do.libs.helpers import get_app_settings
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, discord_client_id='207646673902501888'):
-        super(MainWindow, self).__init__()
-        self.discord_client_id = discord_client_id
-        self.title = 'DisordOverlay'
+    def __init__(self, discord_client_id=None):
+        super().__init__()
         self.app_icon = QIcon(':/images/icon.ico')
-        self.sys_tray_icon = None
-        self.discord_overlay = None
+        self.discord_client_id = None
         self.discord_connector = None
+        self.discord_overlay = None
+        self.sys_tray_icon = None
         self.timer = None
+        self.set_discord_client_id(discord_client_id)
         self.init_ui()
         self.init_discord_connector()
 
-    def init_ui(self):
-        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
-        self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setAttribute(Qt.WA_NoSystemBackground)
-        self.setWindowIcon(self.app_icon)
-        self.sys_tray_icon = SystemTrayIcon(icon=self.app_icon, parent=self)
+    def set_discord_client_id(self, discord_client_id):
+        if discord_client_id:
+            get_app_settings().setValue('discord_client_id', discord_client_id)
+        else:
+            get_app_settings().setValue('discord_client_id', DEFAULT_DISCORD_CLIENT_ID)
 
+        get_app_settings().sync()
+        self.discord_client_id = get_app_settings().value(
+            'discord_client_id',
+            defaultValue=DEFAULT_DISCORD_CLIENT_ID,
+            type=str
+        )
+
+    def init_ui(self):
+        self.setAttribute(Qt.WA_NoSystemBackground)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
+        self.setWindowIcon(self.app_icon)
         self.discord_overlay = DiscordOverlay(parent=self)
+        self.sys_tray_icon = SystemTrayIcon(icon=self.app_icon, parent=self)
 
     def init_discord_connector(self):
         self.discord_connector = DiscordConnector(
-            client_id=self.discord_client_id,
-            discord_overlay=self.discord_overlay
+            client_id=self.discord_client_id
         )
-
-        self.discord_connector.comm.authenticated.connect(self.discord_overlay.launch)
+        # All the signal forwards
+        self.discord_connector.comm.authenticated.connect(self.discord_overlay.show)
         self.discord_connector.comm.you_joined_voice_channel_signal.connect(self.discord_overlay.you_joined_voice_channel_signal)
         self.discord_connector.comm.you_left_voice_channel_signal.connect(self.discord_overlay.you_left_voice_channel)
         self.discord_connector.comm.someone_joined_voice_channel_signal.connect(self.discord_overlay.someone_joined_channel)
