@@ -3,9 +3,9 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QScrollArea,
+    QFrame,
 )
-from do import APPLICATION_NAME
-from do.components.overlay import Overlay
+
 from do.components.overlay_header import OverlayHeaderWidget
 from do.components.user_widget import UserWidget, load_qss_for
 from do.libs.helpers import (
@@ -14,10 +14,25 @@ from do.libs.helpers import (
 )
 
 
-class DiscordOverlay(Overlay):
-    def __init__(self, parent):
-        super().__init__(name=APPLICATION_NAME, pos_x=0, pos_y=0, width=200, height=200, parent=parent)
+class DiscordOverlay(QFrame):
+    pos_x=0
+    pos_y=0
+    width=200
+    height=200
+    def __init__(self, name, parent=None):
+        super().__init__(parent=parent)
         self.setAttribute(Qt.WA_AlwaysShowToolTips)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(Qt.WA_NoSystemBackground)
+        self.setMinimumHeight(self.height)
+        self.setMinimumWidth(self.width)
+        self.setGeometry(self.pos_x, self.pos_y, self.width, self.height)
+        self.setObjectName(name)
+        self.setWindowFlags(
+            Qt.FramelessWindowHint |
+            Qt.Tool |
+            Qt.WindowStaysOnTopHint
+        )
         self.avatars = {}
         self.default_avatar = self.get_avatar('default')
         self.header_widget = None
@@ -25,14 +40,21 @@ class DiscordOverlay(Overlay):
         self.old_pos = self.pos()
         self.user_container = None
         self.users = {}
+        self.name = name
+        self.title = name
+
         self.init_ui()
 
     def init_ui(self):
+        layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        self.setLayout(layout)
         self.header_widget = OverlayHeaderWidget(parent=self, title=self.name)
         self.scroll_area = DiscordOverlayScrollArea(parent=self)
-        self.layout.addWidget(self.header_widget)
-        self.layout.addWidget(self.scroll_area)
-        self.header_widget.show()
+
+        self.layout().addWidget(self.header_widget)
+        self.layout().addWidget(self.scroll_area)
 
     def get_user_widget(self, user, avatar_data):
         user_widget = UserWidget(user=user, avatar_data=avatar_data, parent=self)
@@ -51,8 +73,8 @@ class DiscordOverlay(Overlay):
             self.header_widget.hide()
             self.scroll_area.setStyleSheet('background: transparent; border: none;')
             self.parent().sys_tray_icon.showMessage(
-                APPLICATION_NAME,
-                f'The {APPLICATION_NAME} is running in background'
+                self.name,
+                f'The {self.name} is running in background'
             )
         else:
             self.header_widget.show()

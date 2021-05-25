@@ -3,16 +3,14 @@ import signal
 import sys
 import click
 
-from PyQt5.QtCore import QCoreApplication
-from PyQt5.QtWidgets import QApplication
-
+from do.app import App
 from do import (
-    ORGANIZATION_DOMAIN,
     APPLICATION_NAME,
+    ORGANIZATION_DOMAIN,
 )
-from do.components.main_window import MainWindow
-from do.libs.helpers import exit_app
 
+# To manage CTRL+C from terminal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 logging.basicConfig(
     format='[%(asctime)s] %(levelname)s: %(message)s',
@@ -28,17 +26,11 @@ def main(debug=False):
         logger = logging.getLogger()
         logger.setLevel(logging.DEBUG)
 
-    signal.signal(signal.SIGINT, exit_app)
-    QCoreApplication.setOrganizationDomain(ORGANIZATION_DOMAIN)
-    QCoreApplication.setApplicationName(APPLICATION_NAME)
-
-    app = QApplication(sys.argv)
-    app.setQuitOnLastWindowClosed(False)
-
-    main_window = MainWindow()
-    main_window.show()
-
-    sys.exit(app.exec_())
+    app = App(
+        organization_domain=ORGANIZATION_DOMAIN,
+        application_name=APPLICATION_NAME
+    )
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':

@@ -12,8 +12,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QIcon
 
-import do.resources.rc # pylint: disable=unused-import
-from do import DEFAULT_DISCORD_CLIENT_ID
+from do import APPLICATION_NAME, DEFAULT_DISCORD_CLIENT_ID
 from do.components.discord_overlay import DiscordOverlay
 from do.components.system_tray import SystemTrayIcon
 from do.libs.discord_connector import DiscordConnector
@@ -21,38 +20,39 @@ from do.libs.helpers import get_app_settings
 
 
 class MainWindow(QMainWindow):
-    def __init__(self, discord_client_id=None):
+    discord_client_id = None
+    discord_connector = None
+    discord_overlay = None
+    sys_tray_icon = None
+    timer = None
+
+    def __init__(self):
         super().__init__()
-        self.app_icon = QIcon(':/images/icon.ico')
-        self.discord_client_id = None
-        self.discord_connector = None
-        self.discord_overlay = None
-        self.sys_tray_icon = None
-        self.timer = None
-        self.set_discord_client_id(discord_client_id)
+        self.set_discord_client_id()
         self.init_ui()
         self.init_discord_connector()
 
-    def set_discord_client_id(self, discord_client_id):
-        if discord_client_id:
-            get_app_settings().setValue('discord_client_id', discord_client_id)
-        else:
-            get_app_settings().setValue('discord_client_id', DEFAULT_DISCORD_CLIENT_ID)
-
-        get_app_settings().sync()
+    def set_discord_client_id(self):
         self.discord_client_id = get_app_settings().value(
             'discord_client_id',
-            defaultValue=DEFAULT_DISCORD_CLIENT_ID,
             type=str
         )
 
+        if not self.discord_client_id:
+            self.save_discord_client_id()
+
+    def save_discord_client_id(self):
+        get_app_settings().setValue('discord_client_id', DEFAULT_DISCORD_CLIENT_ID)
+        get_app_settings().sync()
+
     def init_ui(self):
+        app_icon = QIcon(':/images/icon.ico')
         self.setAttribute(Qt.WA_NoSystemBackground)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowFlags(Qt.WindowStaysOnTopHint | Qt.FramelessWindowHint | Qt.Tool)
-        self.setWindowIcon(self.app_icon)
-        self.discord_overlay = DiscordOverlay(parent=self)
-        self.sys_tray_icon = SystemTrayIcon(icon=self.app_icon, parent=self)
+        self.setWindowIcon(app_icon)
+        self.discord_overlay = DiscordOverlay(name=APPLICATION_NAME, parent=self)
+        self.sys_tray_icon = SystemTrayIcon(icon=app_icon, parent=self)
 
     def init_discord_connector(self):
         self.discord_connector = DiscordConnector(

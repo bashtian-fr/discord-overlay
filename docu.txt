@@ -1,0 +1,30 @@
+example of data
+{
+    'cmd': 'DISPATCH',
+    'data': {
+        'nick': 'Manollo/Tyskie',
+        'mute': False,
+        'volume': 100,
+        'pan': {
+            'left': 1, 'right': 1
+        },
+        'voice_state': {
+            'mute': False,
+            'deaf': False,
+            'self_mute': False,
+            'self_deaf': False,
+            'suppress': False
+        },
+        'user': {
+            'id': '471708225624866836',
+            'username': 'Manollo',
+            'discriminator': '0327',
+            'avatar': '1869189ab02669fda883262f0c9f07a9',
+            'bot': False,
+            'flags': 0,
+            'premium_type': 0
+        }
+    },
+    'evt': 'VOICE_STATE_UPDATE',
+    'nonce': None
+}

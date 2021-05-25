@@ -11,12 +11,15 @@ from websocket import WebSocketConnectionClosedException
 from do.libs.discord_connector_communicator import DiscordConnectorCommunicator
 from do.libs.discord_socket_handler import DiscordSocketHandler
 
-
+# TODO: move to settings
 VOICE_CHANNEL_TYPE = 2
+STREAMKIT_ADDRESS = 'https://streamkit.discord.com'
+DISCORD_ADDRESS = '127.0.0.1'
+DISCORD_PORT = '6463'
 
 
 class DiscordConnector:
-    def __init__(self, client_id, origin='https://streamkit.discord.com', socket_address='127.0.0.1', socket_port='6463'):
+    def __init__(self, client_id, origin=STREAMKIT_ADDRESS, socket_address=DISCORD_ADDRESS, socket_port=DISCORD_PORT):
         self.comm = DiscordConnectorCommunicator()
         self.socket_handler = DiscordSocketHandler(client_id, origin, socket_address, socket_port)
         self.user = None
@@ -74,7 +77,7 @@ class DiscordConnector:
                 logging.error('While handling: %s', error)
                 self.on_close()
                 return True
-            except Exception as error: #pylint: disable=road-except
+            except Exception as error: #pylint: disable=broad-except
                 return self.comm.connection_error.emit(f'{error}')
         return True
 

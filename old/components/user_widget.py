@@ -3,7 +3,11 @@ from PyQt5.QtWidgets import (
     QWidget,
     QGridLayout,
 )
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import (
+    QPixmap,
+    QBrush,
+    QPainter,
+)
 from PyQt5.QtCore import Qt
 from do.libs.helpers import load_qss_for
 
@@ -29,7 +33,10 @@ class UserWidget(QWidget):
     def init_ui(self):
         self.nick_label = UserWidgetNickLabel(self.user['nick'], parent=self)
         self.layout().addWidget(self.nick_label, 0, 0)
-        self.avatar_label = UserWidgetAvatar(avatar=self.avatar_data, parent=self)
+        if False:
+            self.avatar_label = RoundUserWidgetAvatar(avatar=self.avatar_data, parent=self)
+        else:
+            self.avatar_label = SquareUserWidgetAvatar(avatar=self.avatar_data, parent=self)
         self.layout().addWidget(self.avatar_label, 0, 1)
 
     def add_deaf_icon(self):
@@ -71,21 +78,37 @@ class UserWidget(QWidget):
         self.speaking = True
         self.setStyleSheet(f'#{self.objectName()}{{border: 2px solid green;}}')
 
-
 class UserWidgetAvatar(QLabel):
     def __init__(self, avatar, parent):
         super().__init__(parent=parent)
-        self.setStyleSheet('padding-right: 2px;')
+        self.setStyleSheet('padding-right: 2px;border-radius: 14px; background-color: transparent;')
         self.setFixedSize(24, 24)
         self.setAttribute(Qt.WA_TransparentForMouseEvents)
-        self.avatar = avatar
-        self.init_ui()
+        self.avatar_pix = QPixmap()
+        self.avatar_pix.loadFromData(avatar)
+        self.avatar_pix = self.avatar_pix.scaled(28, 28, Qt.KeepAspectRatio, Qt.FastTransformation)
 
-    def init_ui(self):
-        avatar_pix = QPixmap()
-        avatar_pix.loadFromData(self.avatar)
-        avatar_pix = avatar_pix.scaled(28, 28, Qt.KeepAspectRatio, Qt.FastTransformation)
-        self.setPixmap(avatar_pix)
+
+class RoundUserWidgetAvatar(UserWidgetAvatar):
+    def __init__(self, avatar, parent):
+        super().__init__(avatar=avatar, parent=parent)
+
+    def paintEvent(self, event):
+        brush = QBrush(self.avatar_pix)
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setRenderHint(QPainter.Antialiasing, True)
+        painter.setRenderHint(QPainter.HighQualityAntialiasing, True)
+        painter.setRenderHint(QPainter.SmoothPixmapTransform, True)
+        painter.setBrush(brush)
+        painter.drawRoundedRect(0, 0, self.width(), self.height(), self.width()/2, self.height()/2)
+        self.setPixmap(self.avatar_pix)
+
+
+class SquareUserWidgetAvatar(UserWidgetAvatar):
+    def __init__(self, avatar, parent):
+        super().__init__(avatar=avatar, parent=parent)
+        self.setPixmap(self.avatar_pix)
 
 
 class UserWidgetNickLabel(QLabel):

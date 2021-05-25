@@ -43,8 +43,6 @@ jobs:
 
       - name: Install deps
         run: |
-          which python
-          python --version
           python -m pip install --upgrade pip setuptools wheel
           pip install . pyinstaller==4.1
         shell: bash

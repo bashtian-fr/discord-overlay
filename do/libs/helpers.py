@@ -57,8 +57,5 @@ def find_main_window() -> typing.Union[QMainWindow, None]:
 
 
 def exit_app(term=None, source=None): # pylint: disable=unused-argument
-    main_window = find_main_window()
-    if main_window:
-        main_window.sys_tray_icon.hide()
     qApp.exit()
     sys.exit()

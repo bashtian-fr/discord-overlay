@@ -13,9 +13,10 @@
         <file alias="DiscordOverlayUserContainer.qss">../qss/DiscordOverlayUserContainer.qss</file>
         <file alias="OverlayHeaderToggleButton.qss">../qss/OverlayHeaderToggleButton.qss</file>
         <file alias="OverlayHeaderTitleLabel.qss">../qss/OverlayHeaderTitleLabel.qss</file>
-        <file alias="OverlayHeaderWidget.qss">../qss/OverlayHeaderWidget.qss</file>
+        <file alias="ScrollAreaHeaderWidgetUi.qss">../qss/ScrollAreaHeaderWidgetUi.qss</file>
         <file alias="DiscordOverlayScrollArea.qss">../qss/DiscordOverlayScrollArea.qss</file>
         <file alias="OverlayHeaderSizeGrip.qss">../qss/OverlayHeaderSizeGrip.qss</file>
         <file alias="UserWidgetNickLabel.qss">../qss/UserWidgetNickLabel.qss</file>
+        <file alias="SystemTrayIconSettingsDialog.qss">../qss/SystemTrayIconSettingsDialog.qss</file>
     </qresource>
 </RCC>
