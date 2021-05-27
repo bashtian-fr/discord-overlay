@@ -1,7 +1,4 @@
-from PyQt5.QtCore import (
-    QPoint,
-    Qt,
-)
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QHBoxLayout,
     QLabel,
@@ -16,7 +13,7 @@ from PyQt5.QtGui import (
 from do.libs.helpers import load_qss_for
 
 
-class ScrollAreaHeaderWidgetUi(QWidget):
+class ScrollAreaHeaderWidget(QWidget):
     def __init__(self, parent, title):
         super().__init__(parent)
         self.setAttribute(Qt.WA_StyledBackground, True)

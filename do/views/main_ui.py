@@ -1,14 +1,14 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
-    QScrollArea,
     QVBoxLayout,
     QFrame,
-    QApplication,
 )
 
-from ..libs.helpers import load_qss_for
-from .scroll_area_header_ui import ScrollAreaHeaderWidgetUi
 
+from ..widgets import (
+    CentralWidgetScrollArea,
+    CentralWidgetScrollAreaHeaderWidget,
+)
 
 class MainViewUi():
     def setupUi(self, main_window):
@@ -35,15 +35,13 @@ class MainViewUi():
         centralwidget_layout.setContentsMargins(0, 0, 0, 0)
         centralwidget_layout.setSpacing(0)
 
-        self.scroll_area = QScrollArea(parent=self.centralwidget)
-        # TODO: move to dedicated object
-        self.scroll_area.setObjectName('DiscordOverlayScrollArea')
-        self.scroll_area.setStyleSheet(load_qss_for('DiscordOverlayScrollArea'))
-        self.scroll_area.setWidgetResizable(True)
-        self.scroll_area_header = ScrollAreaHeaderWidgetUi(
+        self.scroll_area = CentralWidgetScrollArea(parent=self.centralwidget)
+        self.scroll_area_header = CentralWidgetScrollAreaHeaderWidget(
             parent=self.centralwidget,
-            title=QApplication.instance().applicationName(),
         )
+        self.scroll_area_header.setToolTip('Hold left click to move')
+
+
         centralwidget_layout.addWidget(self.scroll_area_header)
         centralwidget_layout.addWidget(self.scroll_area)
 

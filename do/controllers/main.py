@@ -10,7 +10,6 @@ class MainController(QObject):
         super().__init__()
         self._model = model
 
-    # This?
     @pyqtSlot()
     def quit_app(self):
         qApp.quit()

@@ -1,4 +1,4 @@
-#OverlayHeaderTitleLabel {
+#CentralWidgetScrollAreaHeaderTitleWidget {
     padding-left: 2px;
     border: 0px;
     color: white;

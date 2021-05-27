@@ -7,9 +7,6 @@ from PyQt5.QtCore import (
 
 
 class MainModel(QObject):
-    # What am I suppoed to do ?
-
-    # This?
     users_changed = pyqtSignal(list)
 
     def __init__(self):

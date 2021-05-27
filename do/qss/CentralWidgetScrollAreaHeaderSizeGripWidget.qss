@@ -1,9 +1,9 @@
-#OverlayHeaderSizeGrip {
+#CentralWidgetScrollAreaHeaderSizeGripWidget {
     margin: 1px;
     border-image: url(:/images/grip.png);
     width: 18px;
     height: 18px;
 }
-#OverlayHeaderSizeGrip:hover {
+#CentralWidgetScrollAreaHeaderSizeGripWidget:hover {
     border-image: url(:/images/grip_hover.png);
 }

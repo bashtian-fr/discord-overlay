@@ -11,7 +11,8 @@ from PyQt5.QtGui import (
 from PyQt5.QtCore import Qt
 from do.libs.helpers import load_qss_for
 
-
+SIZE = '24px'
+FONTSIZE = '10px'
 class UserWidget(QWidget):
     def __init__(self, user, avatar_data, parent=None):
         super(UserWidget, self).__init__(parent=parent)
