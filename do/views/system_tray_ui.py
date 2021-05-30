@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import (
 
 class SystemTrayViewUi():
     # pylint: disable=attribute-defined-outside-init
-    def setupUi(self, system_tray, application_name):
+    def setup_ui(self, system_tray, application_name):
         system_tray.setToolTip(application_name)
         system_tray.setIcon(QIcon(':/images/icon.ico'))
         system_tray.setVisible(True)

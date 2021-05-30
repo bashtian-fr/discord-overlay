@@ -1,0 +1,16 @@
+#SettingsDialogHeader {
+    background: #3c3c3c;
+}
+
+#SettingsDialogHeader QLabel{
+    color: white;
+}
+
+
+#SettingsDialogHeaderCloseButton{
+    border-image: url(:/images/close.png);
+}
+
+#SettingsDialogHeaderCloseButton:hover {
+    border-image: url(:/images/close_hover.png);
+}

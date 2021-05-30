@@ -9,6 +9,7 @@ class SystemTrayView(QSystemTrayIcon):
         self._controller = controller
         self._model = model
         self._ui = SystemTrayViewUi()
-        self._ui.setupUi(self, application_name)
+        self._ui.setup_ui(self, application_name)
+        self._ui.toggle_overlay_action.triggered.connect(self._controller.main_window_visibility_changed.emit)
         self._ui.quit_action.triggered.connect(self._controller.quit_app)
-        self._ui.settings_action.triggered.connect(self._controller.show_settings_dialog)
+        self._ui.settings_action.triggered.connect(self._controller.settings_dialog_visibility_changed.emit)

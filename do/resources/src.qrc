@@ -2,6 +2,7 @@
 <RCC version="1.0">
     <qresource prefix="/images">
         <file alias="close.png">../statics/images/close.png</file>
+        <file alias="close_hover.png">../statics/images/close_hover.png</file>
         <file alias="icon.ico">../statics/images/icon.ico</file>
         <file alias="grip.png">../statics/images/grip.png</file>
         <file alias="grip_hover.png">../statics/images/grip_hover.png</file>
@@ -10,7 +11,8 @@
         <file alias="hide.png">../statics/images/hide.png</file>
     </qresource>
     <qresource prefix="/qss">
-        <file alias="application.qss">../qss/SystemTrayIconSettingsDialog.qss</file>
+        <file alias="SettingsDialog.qss">../qss/SettingsDialog.qss</file>
+        <file alias="SettingsDialogHeader.qss">../qss/SettingsDialogHeader.qss</file>
         <file alias="CentralWidgetScrollArea.qss">../qss/CentralWidgetScrollArea.qss</file>
         <file alias="CentralWidgetScrollAreaHeaderWidget.qss">../qss/CentralWidgetScrollAreaHeaderWidget.qss</file>
         <file alias="CentralWidgetScrollAreaHeaderToggleButtonWidget.qss">../qss/CentralWidgetScrollAreaHeaderToggleButtonWidget.qss</file>
